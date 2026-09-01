@@ -159,3 +159,16 @@ CORS_ALLOWED_ORIGINS = [
 
 # Для разработки (разрешить все источники)
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'UNAUTHENTICATED_USER': None,
+    'EXCEPTION_HANDLER': 'habits.utils.custom_exception_handler',
+}
