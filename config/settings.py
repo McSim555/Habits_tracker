@@ -170,5 +170,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'UNAUTHENTICATED_USER': None,
-    'EXCEPTION_HANDLER': 'habits.utils.custom_exception_handler',
 }

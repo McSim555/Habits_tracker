@@ -25,11 +25,12 @@ class Habit(models.Model):
     )
 
     date = models.DateField(verbose_name="Дата",
-        help_text="Укажите дату",)
+        help_text="Укажите дату",
+                            null=True, blank=True)
 
     time = models.TimeField(
         verbose_name="Время",
-        help_text="Укажите время",
+        help_text="Укажите время", null=True, blank=True
     )
 
     action = models.CharField(

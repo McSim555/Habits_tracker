@@ -22,7 +22,7 @@ class HabitViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Habit.objects.filter(
-            models.Q(owner=user) | models.Q(is_public=True)
+            models.Q(owner=user)
         ).distinct()
 
     def perform_create(self, serializer):

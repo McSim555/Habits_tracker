@@ -76,11 +76,15 @@ def validate_not_self_connected(instance, connected_habit):
         )
 
 
+# habits/validators.py
+
 def validate_periodicity_range(value):
     """
     Валидатор: периодичность должна быть от 1 до 7 дней.
-    Нельзя выполнять привычку реже, чем 1 раз в 7 дней.
     """
+    if value is None:
+        return
+
     if value < 1:
         raise ValidationError(
             _("Периодичность не может быть меньше 1 дня."),
@@ -94,7 +98,6 @@ def validate_periodicity_range(value):
             code='periodicity_too_high',
             params={'value': value}
         )
-
 
 def validate_time_to_complete_range(value):
     """
