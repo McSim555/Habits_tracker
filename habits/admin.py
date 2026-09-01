@@ -12,5 +12,5 @@ class UserAdmin(admin.ModelAdmin):
         "place",
         "time",
     )
-    list_filter = ("is_pleasant" "id")
+    list_filter = ("is_pleasant", "id")
     search_fields = ("id",)
