@@ -46,12 +46,11 @@ class User(AbstractUser):
         null=True,
         blank=True,
         verbose_name="Telegram Chat ID",
-        help_text="ID чата в Telegram для получения уведомлений"
+        help_text="ID чата в Telegram для получения уведомлений",
     )
 
     is_telegram_verified = models.BooleanField(
-        default=False,
-        verbose_name="Telegram верифицирован"
+        default=False, verbose_name="Telegram верифицирован"
     )
 
     objects = UserManager()

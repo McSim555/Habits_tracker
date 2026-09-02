@@ -1,6 +1,7 @@
 import requests
 from django.conf import settings
 
+
 class TelegramBot:
     """Класс для работы с Telegram ботом"""
 
@@ -18,8 +19,8 @@ class TelegramBot:
         try:
             url = f"{cls.BASE_URL}/sendMessage"
             payload = {
-                'chat_id': chat_id,
-                'text': message,
+                "chat_id": chat_id,
+                "text": message,
             }
 
             print(f"Отправка сообщения в чат {chat_id}")
@@ -35,6 +36,7 @@ class TelegramBot:
         except requests.exceptions.RequestException as e:
             print(f"Ошибка при отправке сообщения: {e}")
             return False
+
 
 def format_habit_message(habit):
     """
