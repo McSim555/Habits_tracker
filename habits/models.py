@@ -1,11 +1,11 @@
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
+
 from users.models import User
-from .validators import (
-    validate_habit_business_logic,
-    validate_time_to_complete_range,
-    validate_periodicity_range,
-)
+
+from .validators import (validate_habit_business_logic,
+                         validate_periodicity_range,
+                         validate_time_to_complete_range)
 
 
 class Habit(models.Model):
@@ -24,13 +24,12 @@ class Habit(models.Model):
         help_text="Укажите место",
     )
 
-    date = models.DateField(verbose_name="Дата",
-        help_text="Укажите дату",
-                            null=True, blank=True)
+    date = models.DateField(
+        verbose_name="Дата", help_text="Укажите дату", null=True, blank=True
+    )
 
     time = models.TimeField(
-        verbose_name="Время",
-        help_text="Укажите время", null=True, blank=True
+        verbose_name="Время", help_text="Укажите время", null=True, blank=True
     )
 
     action = models.CharField(
@@ -46,19 +45,19 @@ class Habit(models.Model):
     )
 
     connected_habit = models.ForeignKey(
-        'self',
+        "self",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name='Связанная привычка',
-        related_name='connected_habits'
+        verbose_name="Связанная привычка",
+        related_name="connected_habits",
     )
 
     periodicity = models.PositiveSmallIntegerField(
         default=1,
         validators=[validate_periodicity_range],
         verbose_name="Периодичность (дни)",
-        help_text="Периодичность выполнения привычки в днях (от 1 до 7 дней)"
+        help_text="Периодичность выполнения привычки в днях (от 1 до 7 дней)",
     )
 
     prize = models.CharField(
@@ -73,37 +72,38 @@ class Habit(models.Model):
         default=30,
         validators=[validate_time_to_complete_range],
         verbose_name="Время на выполнение (секунды)",
-        help_text="Время, которое предположительно потратит пользователь на выполнение привычки (10-120 секунд)"
+        help_text="Время, которое предположительно потратит пользователь на выполнение привычки (10-120 секунд)",
     )
 
     is_public = models.BooleanField(
         default=False,
         verbose_name="Признак публичности",
-        help_text="Отметьте, если хотите опубликовать привычку в общий доступ"
+        help_text="Отметьте, если хотите опубликовать привычку в общий доступ",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    last_reminder = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Привычка"
         verbose_name_plural = "Привычки"
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
         constraints = [
             # Проверка: нельзя одновременно иметь prize и connected_habit
             models.CheckConstraint(
                 check=~models.Q(prize__isnull=False, connected_habit__isnull=False),
-                name='no_both_prize_and_connected_habit'
+                name="no_both_prize_and_connected_habit",
             ),
             # Проверка: приятная привычка не может иметь prize
             models.CheckConstraint(
                 check=~models.Q(is_pleasant=True, prize__isnull=False),
-                name='pleasant_no_prize'
+                name="pleasant_no_prize",
             ),
             # Проверка: приятная привычка не может иметь connected_habit
             models.CheckConstraint(
                 check=~models.Q(is_pleasant=True, connected_habit__isnull=False),
-                name='pleasant_no_connected_habit'
+                name="pleasant_no_connected_habit",
             ),
         ]
 

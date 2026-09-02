@@ -41,6 +41,19 @@ class User(AbstractUser):
         help_text="Укажите город",
     )
 
+    chat_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name="Telegram Chat ID",
+        help_text="ID чата в Telegram для получения уведомлений"
+    )
+
+    is_telegram_verified = models.BooleanField(
+        default=False,
+        verbose_name="Telegram верифицирован"
+    )
+
     objects = UserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

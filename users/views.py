@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from users.models import User
 from users.permissions import IsOwnerUser
-from users.serializer import (CustomTokenObtainPairSerializer, UserSerializer)
+from users.serializer import CustomTokenObtainPairSerializer, UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action == "create":
             self.permission_classes = [AllowAny]
         return super().get_permissions()
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

@@ -1,12 +1,11 @@
-from rest_framework import serializers
 from django.core.exceptions import ValidationError
+from rest_framework import serializers
 
 from .models import Habit
-from .validators import (
-    validate_time_to_complete_range,
-    validate_periodicity_range,
-    validate_habit_business_logic, validate_connected_habit_is_pleasant,
-)
+from .validators import (validate_connected_habit_is_pleasant,
+                         validate_habit_business_logic,
+                         validate_periodicity_range,
+                         validate_time_to_complete_range)
 
 
 class HabitSerializer(serializers.ModelSerializer):
@@ -16,21 +15,21 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = [
-            'id',
-            'owner',
-            'place',
-            'time_display',
-            'action',
-            'is_pleasant',
-            'is_public',
-            'periodicity_display',
-            'time_to_complete',
-            'connected_habit',
-            'prize',
-            'created_at',
-            'updated_at',
+            "id",
+            "owner",
+            "place",
+            "time_display",
+            "action",
+            "is_pleasant",
+            "is_public",
+            "periodicity_display",
+            "time_to_complete",
+            "connected_habit",
+            "prize",
+            "created_at",
+            "updated_at",
         ]
-        read_only_fields = ['owner', 'created_at', 'updated_at']
+        read_only_fields = ["owner", "created_at", "updated_at"]
 
     def validate_time_to_complete(self, value):
         """Валидация времени выполнения"""
@@ -78,10 +77,10 @@ class HabitSerializer(serializers.ModelSerializer):
 
     def get_time_display(self, obj):
         if obj.time:
-            if hasattr(obj, 'date') and obj.date:
-                return obj.date.strftime('%d.%m.%Y') + ' ' + obj.time.strftime('%H:%M')
-            if hasattr(obj, 'created_at') and obj.created_at:
-                return obj.created_at.strftime('%d.%m.%Y %H:%M')
+            if hasattr(obj, "date") and obj.date:
+                return obj.date.strftime("%d.%m.%Y") + " " + obj.time.strftime("%H:%M")
+            if hasattr(obj, "created_at") and obj.created_at:
+                return obj.created_at.strftime("%d.%m.%Y %H:%M")
         return None
 
     def get_periodicity_display(self, obj):
