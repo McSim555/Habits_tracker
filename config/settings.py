@@ -146,15 +146,15 @@ CORS_ALLOWED_ORIGINS = [
 # Для разработки (разрешить все источники)
 CORS_ALLOW_ALL_ORIGINS = True
 
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
 
 CELERY_BEAT_SCHEDULE = {
-    'check_habits_reminders': {
-        'task': 'check_habits_reminders',
-        'schedule': crontab(hour=8, minute=0),
+    "check_habits_reminders": {
+        "task": "check_habits_reminders",
+        "schedule": crontab(hour=8, minute=0),
     },
 }
